@@ -6,7 +6,7 @@
 /*   By: mrobaii <mrobaii@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:29:12 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/22 18:47:21 by mrobaii          ###   ########.fr       */
+/*   Updated: 2022/12/23 13:38:21 by mrobaii          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ char	**ft_split(char  *s, char c)
 
 void	open_files(pipex_t *data, char **av)
 {
-	data->infile = open(av[1], O_RDONLY | 0666);
-	data->outfile = open(av[4], O_CREAT, O_WRONLY | 0666);
+	data->infile = open(av[1], O_RDONLY , 0666);
+	data->outfile = open(av[4], O_CREAT | O_RDWR , 0666);
 	data->save_fd = -1;
 	if (data->infile < 0)
 	{
@@ -159,12 +159,12 @@ void	open_files(pipex_t *data, char **av)
 		}
 }
 
-int ft_strncmp(char *s1, char *s2, int len)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
-	int i;
-	
+	size_t i;
+
 	i = 0;
-	while(s1[i] == s2[i] && i < len - 1)
+	while (s1[i] == s2[i] && i < n -1)
 		i++;
 	return (s1[i] - s2[i]);
 }
@@ -176,7 +176,7 @@ char *find_path_in_env(char **env)
 	i = 0;
 	while(env[i])
 	{
-		if (!ft_strncmp("PATH", env[i], 5))
+		if (!ft_strncmp("PATH", env[i], 4))
 			return (env[i]);
 		i++;
 	}
@@ -213,9 +213,7 @@ char *cmd_path(char **splited_path, char *cmd)
 			return (join);
 		// free(join);
 		i++;
-
 	}
-
 	return (NULL);
 }
 
@@ -226,6 +224,7 @@ int main(int ac, char **av, char **env)
 	int i;
 	char **cmd;
 	char *path;
+	int z;
 
 	i = 2;
 	data = malloc(sizeof(pipex_t));
@@ -234,39 +233,33 @@ int main(int ac, char **av, char **env)
 		open_files(data, av);
 		while(i < ac - 1)
 		{
-			if (pipe(data->fd))
-			perror(NULL);
+			pipe(data->fd);
 			pid = fork();
 
 			if (pid == 0)
 			{
 				cmd = ft_split(av[i], ' ');
 				path = cmd_path(split_path(find_path_in_env(env)), cmd[0]);
-				printf("%s\n", path);
-				exit(0);
 				dup2(data->infile, STDIN_FILENO);
 				if (data->save_fd != -1)
 					dup2(data->save_fd, 0);
 				dup2(data->fd[1], STDOUT_FILENO);
 				if (i == ac - 2)
+				{
 					dup2(data->outfile, STDOUT_FILENO);
-				
-				
+				}
 				execve(path, cmd, env);
-			
 			}
 			close (data->fd[1]);
 			if (data->save_fd != -1)
 				close(data->save_fd);
 			data->save_fd = data->fd[0];
 			i++;
-		wait (NULL);
 		}
 		close (data->infile);
 		close(data->outfile);
-		// while (pid != -1)
-		// 	waitpid(-1, NULL, 0);
+		wait (NULL);
 	}
 	else
-		printf("INnvalid args\n");
+		printf("Invalid args\n");
 }
