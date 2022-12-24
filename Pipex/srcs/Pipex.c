@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrobaii <mrobaii@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucifer <lucifer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:29:12 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/23 14:38:33 by mrobaii          ###   ########.fr       */
+/*   Updated: 2022/12/24 18:09:37 by lucifer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int main(int ac, char **av, char **env)
 		}
 		close (data->infile);
 		close(data->outfile);
-		wait (NULL);
+		wait(NULL);
+		
 	}
 	else
 		printf("Invalid args\n");

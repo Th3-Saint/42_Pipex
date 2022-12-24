@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrobaii <mrobaii@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lucifer <lucifer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:23:01 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/23 14:38:19 by mrobaii          ###   ########.fr       */
+/*   Updated: 2022/12/24 17:49:29 by lucifer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	open_files(pipex_t *data, char **av)
 {
 	data->infile = open(av[1], O_RDONLY , 0666);
-	data->outfile = open(av[4], O_CREAT | O_RDWR , 0666);
+	data->outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	data->save_fd = -1;
 	if (data->infile < 0)
 	{
