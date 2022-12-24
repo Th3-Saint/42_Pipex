@@ -6,7 +6,7 @@
 /*   By: lucifer <lucifer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:26:01 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/24 19:01:43 by lucifer          ###   ########.fr       */
+/*   Updated: 2022/12/24 19:31:14 by lucifer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct pipex
 
 char	**ft_split(char  *s, char c);
 int	ft_strncmp(char *s1, char *s2, size_t n);
-void	open_files(pipex_t *data, char **av, int ac);
+void	open_files(pipex_t *data, char **av, int ac, int *i);
 char *find_path_in_env(char **env);
 char **split_path(char *path);
 char *cmd_path(char **splited_path, char *cmd);

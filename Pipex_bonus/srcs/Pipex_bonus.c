@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pipex.c                                            :+:      :+:    :+:   */
+/*   Pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucifer <lucifer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:29:12 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/24 19:05:49 by lucifer          ###   ########.fr       */
+/*   Updated: 2022/12/24 21:46:08 by lucifer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int main(int ac, char **av, char **env)
 	data = malloc(sizeof(pipex_t));
 	if (ac >= 5)
 	{
-		open_files(data, av, ac);
+		open_files(data, av, ac, &i);
 		while(i < ac - 1)
 		{
 			pipe(data->fd);

@@ -6,7 +6,7 @@
 /*   By: lucifer <lucifer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:23:01 by mrobaii           #+#    #+#             */
-/*   Updated: 2022/12/24 19:10:58 by lucifer          ###   ########.fr       */
+/*   Updated: 2022/12/24 19:36:15 by lucifer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int here_doc(char *delemeter)
 	str = get_next_line(0);
 	while (ft_strncmp(str, delemeter, ft_strlen(delemeter) + 1))
 	{
-		printf("%d\n", ft_strncmp(str, delemeter, ft_strlen(delemeter) + 1));
 		write(1, "here_doc> ", 10);
 		write(fd[1], str, ft_strlen(str));
 		free(str);
@@ -32,10 +31,11 @@ int here_doc(char *delemeter)
 	return (fd[0]);
 }
 
-void	open_files(pipex_t *data, char **av, int ac)
+void	open_files(pipex_t *data, char **av, int ac, int *i)
 {
 	if (!ft_strncmp("here_doc", av[1], 8))
 	{
+		*i = 3;
 		data->infile = here_doc(av[2]);
 		data->outfile = open(av[ac - 1], O_CREAT | O_APPEND | O_WRONLY, 0666);
 		
